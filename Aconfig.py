@@ -18,6 +18,7 @@ class Config:
         self.input_dim = 2  
         self.num_hidden_layers = 3
         self.hidden_dim = 20
+        self.output_dim = 1
         self.activation_function = torch.nn.Tanh()
 
         # Domain configuration
