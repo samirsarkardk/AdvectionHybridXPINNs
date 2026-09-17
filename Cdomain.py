@@ -5,6 +5,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 config = Config()
+delta = config.delta
 
 
 x_min = config.x_min
@@ -16,5 +17,57 @@ x_min.to(DEVICE), x_max.to(DEVICE), t_min.to(DEVICE), t_max.to(DEVICE)
 
 t_mid = (t_max + t_min)/2
 x_mid = (x_max + x_min)/2
+
+def subdomain1(delta):
+
+    x1_min = x_min
+    x1_max = x_mid - delta
+
+    t1_min = t_min
+    t1_max = t_mid - delta
+
+    return x1_min, x1_max, t1_min, t1_max
+
+
+def subdomain2(delta):
+    x2_min = x_mid + delta
+    x2_max = x_max
+    t2_min = t_min
+    t2_max = t_mid - delta
+
+    return x2_min, x2_max, t2_min, t2_max
+
+
+def subdomain3(delta):
+    x3_min = x_min
+    x3_max = x_mid - delta
+    t3_min = t_mid + delta
+    t3_max = t_max
+
+    return x3_min, x3_max, t3_min, t3_max
+
+
+def subdomain2(delta):
+    x4_min = x_mid + delta
+    x4_max = x_max
+    t4_min = t_mid + delta
+    t4_max = t_max
+
+    return x4_min, x4_max, t4_min, t4_max
+
+
+
+
+N = 2000
+
+x1_min, x1_max, t1_min, t1_max = subdomain1(delta)
+
+x1 = x1_min + (x1_max - x1_min) * torch.rand(N,1)
+t1 = t1_min + (t1_max - t1_min) * torch.rand(N,1)
+X = torch.cat((x1,t1), dim=1)
+
+print(x1.shape)
+print(t1.shape)
+print(X.shape)
 
 
