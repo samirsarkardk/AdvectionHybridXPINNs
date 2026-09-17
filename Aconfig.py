@@ -1,14 +1,14 @@
 import numpy as np
 import torch
 
+DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
 class Config:
     def __init__(self):
         # Set random seed for reproducibility
         self.seed = 42
         np.random.seed(self.seed)
         torch.manual_seed(self.seed)
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-        self.dtype = torch.float32
 
         # Training parameters
         self.num_epochs = 1000
@@ -22,8 +22,8 @@ class Config:
         self.activation_function = torch.nn.Tanh()
 
         # Domain configuration
-        self.x_min = 0.0
-        self.x_max = 1.0
-        self.t_min = 0.0
-        self.t_max = 1.0
-        self.delta = 0.05
+        self.x_min = torch.tensor(0.0)
+        self.x_max = torch.tensor(1.0)
+        self.t_min = torch.tensor(0.0)
+        self.t_max = torch.tensor(1.0)
+        self.delta = torch.tensor(0.05)
