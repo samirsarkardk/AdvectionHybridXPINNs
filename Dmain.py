@@ -9,6 +9,11 @@ config = Config()
 delta = config.delta
 
 model1 = PINN1().to(DEVICE)
+model2 = PINN2().to(DEVICE)
+model3 = PINN3().to(DEVICE)
+model4 = PINN4().to(DEVICE)
+model5 = PINN5().to(DEVICE)
+
 
 N = 2000
 
