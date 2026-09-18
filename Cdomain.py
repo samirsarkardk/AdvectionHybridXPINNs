@@ -92,25 +92,25 @@ def subdomain5(delta, N=2000):
 
 
 
-x5, t5 = subdomain5(delta, N=2000)
+# x5, t5 = subdomain5(delta, N=2000)
 
-print(x5.shape)
-print(t5.shape)
-
-
+# print(x5.shape)
+# print(t5.shape)
 
 
-N = 2000
-
-x1_min, x1_max, t1_min, t1_max = subdomain1(delta)
-
-x1 = x1_min + (x1_max - x1_min) * torch.rand(N,1)
-t1 = t1_min + (t1_max - t1_min) * torch.rand(N,1)
-X = torch.cat((x1,t1), dim=1)
 
 
-print(x1.shape)
-print(t1.shape)
-print(X.shape)
+# N = 2000
+
+# x1_min, x1_max, t1_min, t1_max = subdomain1(delta)
+
+# x1 = x1_min + (x1_max - x1_min) * torch.rand(N,1)
+# t1 = t1_min + (t1_max - t1_min) * torch.rand(N,1)
+# X = torch.cat((x1,t1), dim=1)
+
+
+# print(x1.shape)
+# print(t1.shape)
+# print(X.shape)
 
 

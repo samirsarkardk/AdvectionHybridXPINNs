@@ -1,8 +1,7 @@
 import numpy as np
 import torch
 
-DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
-
+DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 class Config:
     def __init__(self):
         # Set random seed for reproducibility
