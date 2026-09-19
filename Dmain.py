@@ -299,6 +299,11 @@ for epoch in range(config.num_epochs):
     loss4 = Subdomain4Loss(x4,t4)
     loss4.backward()
     optimizer4.step()
+
+    optimizer1.zero_grad()
+    optimizer2.zero_grad()
+    optimizer3.zero_grad()
+    optimizer4.zero_grad()
     loss5 = Subdomain5Loss(x5,t5)
     loss5.backward()
     optimizer5.step()
@@ -309,4 +314,7 @@ for epoch in range(config.num_epochs):
         print(f"Epoch {epoch:5d} | Loss1: {loss1.item():.6e} | Loss2: {loss2.item():.6e} | Loss3: {loss3.item():.6e} | Loss4: {loss4.item():.6e} | Loss5: {loss5.item():.6e} ")
 
 
-
+torch.save(model1.state_dict(), "model1.pth")
+torch.save(model2.state_dict(), "model2.pth")
+torch.save(model3.state_dict(), "model3.pth")
+torch.save(model4.state_dict(), "model4.pth")
