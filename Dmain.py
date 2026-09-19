@@ -22,9 +22,14 @@ x1_min, x1_max, t1_min, t1_max = subdomain1(delta)
 
 x1 = x1_min + (x1_max - x1_min) * torch.rand(N,1)
 t1 = t1_min + (t1_max - t1_min) * torch.rand(N,1)
-X = torch.cat((x1,t1), dim=1)
 
 
-print(x1.shape)
-print(t1.shape)
-print(X.shape)
+def Subdomain1_loss(x,t):
+    x = x1
+    t = t1
+    u_pred1 = model1(x,t)
+    return print(u_pred1.shape)
+
+T = Subdomain1_loss(x1, t1)
+
+
