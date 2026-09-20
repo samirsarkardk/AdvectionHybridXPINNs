@@ -96,7 +96,7 @@ def Subdomain1Loss(x,t):
     u_pred_i = model1(x_i, t_i)
     u_pred_left_b = model1(x_b,t_b)
 
-    InitialLoss = nn.MSELoss()(u_pred_i, torch.sin(x_i))
+    InitialLoss = nn.MSELoss()(u_pred_i, torch.sin(torch.pi * x_i))
 
     BoundaryLoss = nn.MSELoss()(u_pred_left_b, torch.zeros_like(u_pred_left_b))
 
@@ -139,7 +139,7 @@ def Subdomain2Loss(x,t):
 
     u_pred_right_b = model2(x_b,t_b)
 
-    InitialLoss = nn.MSELoss()(u_pred_i, torch.sin(x_i))
+    InitialLoss = nn.MSELoss()(u_pred_i, torch.sin(torch.pi * x_i))
 
     BoundaryLoss = nn.MSELoss()(u_pred_right_b, torch.zeros_like(u_pred_right_b))
 
@@ -255,7 +255,7 @@ def Subdomain5Loss(x,t):
     u_pred_right_b = model5(x_b_right, t_b_right)
     u_pred_left_b = model5(x_b_left, t_b_left)
 
-    InitialLoss = nn.MSELoss()(u_pred_i, torch.sin(x_i))
+    InitialLoss = nn.MSELoss()(u_pred_i, torch.sin(torch.pi * x_i))
 
     BoundaryLossLeft = nn.MSELoss()(u_pred_left_b, torch.zeros_like(u_pred_left_b))
     BoundaryLossRight = nn.MSELoss()(u_pred_right_b, torch.zeros_like(u_pred_right_b))
