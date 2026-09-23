@@ -41,7 +41,7 @@ model2 = PINN2().to(DEVICE)
 model3 = CombinedModel(model1, model2).to(DEVICE)
 
 
-N = 2000
+N = 7500
 
 # -------------------------------------------------------------------------------------------------
 # SUBDOMAIN POINTS GENERATIONS
@@ -74,14 +74,16 @@ def Subdomain1Loss(x,t):
 
     x = x1
     t = t1
-    x_i = torch.linspace(x1_min,x1_max, steps=300, device= DEVICE).reshape(-1,1)
+    x_i = torch.linspace(x1_min,x1_max, steps=2000, device= DEVICE).reshape(-1,1)
     t_i = torch.zeros_like(x_i)
 
-    x_b_left = torch.zeros_like(x_i)
-    t_b_left = torch.linspace(t1_min,t1_max, steps=300, device= DEVICE).reshape(-1,1)
+    t_b_left = torch.linspace(t1_min,t1_max, steps=400, device= DEVICE).reshape(-1,1)
+    x_b_left = torch.zeros_like(t_b_left)
+    
 
-    x_b_right = torch.ones_like(x_i)
-    t_b_right = torch.linspace(t1_min,t1_max, steps=300, device= DEVICE).reshape(-1,1)
+    
+    t_b_right = torch.linspace(t1_min,t1_max, steps=400, device= DEVICE).reshape(-1,1)
+    x_b_right = torch.ones_like(t_b_right)
 
     x_b_left.requires_grad_(True)
     t_b_left.requires_grad_(True)
@@ -125,10 +127,10 @@ def Subdomain2Loss(x,t):
     t = t2
 
     
-    t_b_left = torch.linspace(t2_min, t2_max , steps=300, device= DEVICE).reshape(-1,1)
+    t_b_left = torch.linspace(t2_min, t2_max , steps=400, device= DEVICE).reshape(-1,1)
     x_b_left = torch.zeros_like(t_b_left)
 
-    t_b_right = torch.linspace(t2_min, t2_max, steps=300, device=DEVICE).reshape(-1,1)
+    t_b_right = torch.linspace(t2_min, t2_max, steps=400, device=DEVICE).reshape(-1,1)
     x_b_right = torch.ones_like(t_b_right)
     
 
@@ -180,10 +182,10 @@ def Subdomain3Loss(x,t):
     t = t.reshape(-1, 1).requires_grad_(True)
 
     
-    t_b_left = torch.linspace(t3_min, t3_max , steps=100, device= DEVICE).reshape(-1,1)
+    t_b_left = torch.linspace(t3_min, t3_max , steps=200, device= DEVICE).reshape(-1,1)
     x_b_left = torch.zeros_like(t_b_left)
     
-    t_b_right = torch.linspace(t3_min, t3_max , steps=100, device= DEVICE).reshape(-1,1)
+    t_b_right = torch.linspace(t3_min, t3_max , steps=200, device= DEVICE).reshape(-1,1)
     x_b_right = torch.ones_like(t_b_right)
     
 

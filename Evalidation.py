@@ -6,7 +6,8 @@ import os
 from Dmain import CombinedModel
 import matplotlib.pyplot as plt
 
-N = 2000
+N = 5000
+t_value = torch.tensor(0.25)
 
 config = Config()
 delta = config.delta
@@ -33,9 +34,10 @@ t_mid = (t_max + t_min)/2
 
 
 x = x_min + (x_max - x_min) * torch.rand(N,1)
+
 t = t_min + (t_max - t_min) * torch.rand(N,1)
 
-t_mid.to(DEVICE), x.to(DEVICE), t.to(DEVICE)
+t_mid.to(DEVICE), x.to(DEVICE), t.to(DEVICE), t_value.to(DEVICE)
 
 def final_solution(x, t, model1, model2, model3,
                     t_mid, delta):
@@ -72,18 +74,47 @@ def exact_solution(x, t):
     return torch.exp(-torch.pi**2 * t) * torch.sin(torch.pi * x)
 
 
+# ==========================================================
+# Relative L2 Error at t = 0.25
+# ==========================================================
+
+N1 = 5000
+
+
+# Create 5000 x-points from x_min to x_max
+x_test = torch.linspace(x_min, x_max, N1).reshape(-1, 1).to(DEVICE)
+
+# Create a t-column where every value is 0.25
+t_test = torch.full_like(x_test, t_value).to(DEVICE)
+
+# PINN prediction
+u_pred1 = final_solution(
+    x_test,
+    t_test,
+    model1,
+    model2,
+    model3,
+    t_mid,
+    delta
+)
+
+# Exact solution at the same x and t points
+u_exact1 = exact_solution(x_test, t_test)   # Replace with your exact-solution function
+
+# Relative L2 error
+relative_l2_error = (
+    torch.linalg.vector_norm(u_pred1 - u_exact1)
+    / torch.linalg.vector_norm(u_exact1)
+)
+
+print(f"\nRelative L2 Error at t = {t_value}: {relative_l2_error.item():.6e}")
+print(f"Relative L2 Error Percentage: {relative_l2_error.item() * 100:.4f}%")
+
+
 u_pred = final_solution(
     x, t, model1, model2, model3, t_mid, delta)
 
 u_exact = exact_solution(x, t)
-
-relative_l2_error = (
-    torch.linalg.norm(u_pred - u_exact)
-    / torch.linalg.norm(u_exact)
-)
-
-print(f"Relative L2 error: {relative_l2_error.item():.6e}")
-print(f"Relative L2 error: {100 * relative_l2_error.item():.4f}%")
 
 np.save("predicted_solution.npy", u_pred.detach().cpu().numpy())
 
@@ -91,7 +122,7 @@ np.save("predicted_solution.npy", u_pred.detach().cpu().numpy())
 Nx, Nt = 200, 200
 
 x_values = np.linspace(x_min.item(), x_max.item(), Nx)
-t_values = np.linspace(t_min.item(), t_max.item(), Nt)
+t_values = np.linspace(torch.tensor(0.25).item(), torch.tensor(0.2500001).item(), Nt)
 X, T = np.meshgrid(x_values, t_values)
 
 x_grid = torch.tensor(X.reshape(-1, 1), dtype=torch.float32, device=DEVICE)
