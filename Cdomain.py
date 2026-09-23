@@ -16,12 +16,13 @@ t_max = config.x_max
 x_min.to(DEVICE), x_max.to(DEVICE), t_min.to(DEVICE), t_max.to(DEVICE)
 
 t_mid = (t_max + t_min)/2
-x_mid = (x_max + x_min)/2
+
+t_mid.to(DEVICE)
 
 def subdomain1(delta):
 
     x1_min = x_min
-    x1_max = x_mid - delta
+    x1_max = x_max
 
     t1_min = t_min
     t1_max = t_mid - delta
@@ -30,33 +31,18 @@ def subdomain1(delta):
 
 
 def subdomain2(delta):
-    x2_min = x_mid + delta
+    x2_min = x_min
     x2_max = x_max
-    t2_min = t_min
-    t2_max = t_mid - delta
+    t2_min = t_mid + delta
+    t2_max = t_max
 
     return x2_min, x2_max, t2_min, t2_max
 
 
-def subdomain3(delta):
-    x3_min = x_min
-    x3_max = x_mid - delta
-    t3_min = t_mid + delta
-    t3_max = t_max
-
-    return x3_min, x3_max, t3_min, t3_max
 
 
-def subdomain4(delta):
-    x4_min = x_mid + delta
-    x4_max = x_max
-    t4_min = t_mid + delta
-    t4_max = t_max
 
-    return x4_min, x4_max, t4_min, t4_max
-
-
-def subdomain5(delta, N=2000):
+def subdomain3(delta, N=2000):
 
     # Generate candidate points
     x = torch.rand(N * 10, 1)
@@ -65,30 +51,21 @@ def subdomain5(delta, N=2000):
     # Points in the four corner subdomains
     mask = ~(
         (
-            (x <= x_mid - delta) &
+            (x <= x_max) &
             (t <= t_mid - delta)
         )
         |
         (
-            (x >= x_mid + delta) &
-            (t <= t_mid - delta)
-        )
-        |
-        (
-            (x <= x_mid - delta) &
+            (x <= x_max ) &
             (t >= t_mid + delta)
         )
-        |
-        (
-            (x >= x_mid + delta) &
-            (t >= t_mid + delta)
-        )
+       
     )
 
-    x5 = x[mask]
-    t5 = t[mask]
+    x3 = x[mask]
+    t3 = t[mask]
 
-    return x5[:N], t5[:N]
+    return x3[:N], t3[:N]
 
 
 

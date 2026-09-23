@@ -1,4 +1,4 @@
-from Cdomain import subdomain1, subdomain2, subdomain3, subdomain4, subdomain5
+from Cdomain import subdomain1, subdomain2, subdomain3
 import torch
 from Aconfig import Config, DEVICE
 import matplotlib.pyplot as plt
@@ -35,31 +35,14 @@ x2 = x2_min + (x2_max - x2_min) * torch.rand(N, 1, device=DEVICE)
 t2 = t2_min + (t2_max - t2_min) * torch.rand(N, 1, device=DEVICE)
 
 
-# ============================================================
-# Generate 500 points in Subdomain 3
-# ============================================================
 
-x3_min, x3_max, t3_min, t3_max = subdomain3(delta)
-
-x3 = x3_min + (x3_max - x3_min) * torch.rand(N, 1, device=DEVICE)
-t3 = t3_min + (t3_max - t3_min) * torch.rand(N, 1, device=DEVICE)
-
-
-# ============================================================
-# Generate 500 points in Subdomain 4
-# ============================================================
-
-x4_min, x4_max, t4_min, t4_max = subdomain4(delta)
-
-x4 = x4_min + (x4_max - x4_min) * torch.rand(N, 1, device=DEVICE)
-t4 = t4_min + (t4_max - t4_min) * torch.rand(N, 1, device=DEVICE)
 
 
 # ============================================================
 # Generate 500 points in Subdomain 5
 # ============================================================
 
-x5, t5 = subdomain5(delta, N=N)
+x3, t3 = subdomain3(delta, N=N)
 
 
 # ============================================================
@@ -75,11 +58,7 @@ t2_plot = t2.cpu().numpy().flatten()
 x3_plot = x3.cpu().numpy().flatten()
 t3_plot = t3.cpu().numpy().flatten()
 
-x4_plot = x4.cpu().numpy().flatten()
-t4_plot = t4.cpu().numpy().flatten()
 
-x5_plot = x5.cpu().numpy().flatten()
-t5_plot = t5.cpu().numpy().flatten()
 
 
 # ============================================================
@@ -91,8 +70,7 @@ plt.figure(figsize=(9, 9))
 plt.scatter(x1_plot, t1_plot, s=10, label="Subdomain 1")
 plt.scatter(x2_plot, t2_plot, s=10, label="Subdomain 2")
 plt.scatter(x3_plot, t3_plot, s=10, label="Subdomain 3")
-plt.scatter(x4_plot, t4_plot, s=10, label="Subdomain 4")
-plt.scatter(x5_plot, t5_plot, s=10, label="Subdomain 5")
+
 
 # Draw the entire domain boundary
 plt.xlim(x_min, x_max)

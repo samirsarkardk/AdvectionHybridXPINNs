@@ -67,66 +67,66 @@ class PINN2(nn.Module):
         return self.network(inputs)
 
     
-class PINN3(nn.Module):
-    def __init__(self):
-        super().__init__()
+# class PINN3(nn.Module):
+#     def __init__(self):
+#         super().__init__()
 
-        layers = []
+#         layers = []
 
-        # Input layer
+#         # Input layer
 
-        layers.append(nn.Linear(config.input_dim, config.hidden_dim))
-        layers.append(nn.Tanh())
+#         layers.append(nn.Linear(config.input_dim, config.hidden_dim))
+#         layers.append(nn.Tanh())
 
-        # Hidden layers
+#         # Hidden layers
 
-        for _ in range(config.num_hidden_layers -1 ):
-            layers.append(nn.Linear(config.hidden_dim, config.hidden_dim))
-            layers.append(nn.Tanh())
-
-
-        # output layer
-
-        layers.append(nn.Linear(config.hidden_dim, config.output_dim))
-
-        self.network = nn.Sequential(*layers)
+#         for _ in range(config.num_hidden_layers -1 ):
+#             layers.append(nn.Linear(config.hidden_dim, config.hidden_dim))
+#             layers.append(nn.Tanh())
 
 
-    def forward(self, x, t):
-        inputs = torch.cat((x,t), dim= 1)
+#         # output layer
 
-        return self.network(inputs)
+#         layers.append(nn.Linear(config.hidden_dim, config.output_dim))
+
+#         self.network = nn.Sequential(*layers)
+
+
+#     def forward(self, x, t):
+#         inputs = torch.cat((x,t), dim= 1)
+
+#         return self.network(inputs)
 
     
-class PINN4(nn.Module):
-    def __init__(self):
-        super().__init__()
+# class PINN4(nn.Module):
+#     def __init__(self):
+#         super().__init__()
 
-        layers = []
+#         layers = []
 
-        # Input layer
+#         # Input layer
 
-        layers.append(nn.Linear(config.input_dim, config.hidden_dim))
-        layers.append(nn.Tanh())
+#         layers.append(nn.Linear(config.input_dim, config.hidden_dim))
+#         layers.append(nn.Tanh())
 
-        # Hidden layers
+#         # Hidden layers
 
-        for _ in range(config.num_hidden_layers -1 ):
-            layers.append(nn.Linear(config.hidden_dim, config.hidden_dim))
-            layers.append(nn.Tanh())
-
-
-        # output layer
-
-        layers.append(nn.Linear(config.hidden_dim, config.output_dim))
-
-        self.network = nn.Sequential(*layers)
+#         for _ in range(config.num_hidden_layers -1 ):
+#             layers.append(nn.Linear(config.hidden_dim, config.hidden_dim))
+#             layers.append(nn.Tanh())
 
 
-    def forward(self, x, t):
-        inputs = torch.cat((x,t), dim= 1)
+#         # output layer
 
-        return self.network(inputs)
+#         layers.append(nn.Linear(config.hidden_dim, config.output_dim))
+
+#         self.network = nn.Sequential(*layers)
+
+
+#     def forward(self, x, t):
+#         inputs = torch.cat((x,t), dim= 1)
+
+#         return self.network(inputs)
 
 
 
